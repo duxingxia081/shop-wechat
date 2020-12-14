@@ -1,0 +1,28 @@
+<view class="swiper-container">
+  <swiper class="swiper_box" indicator-dots="true" interval="{{3000}}" duration="{{500}}" autoplay="{{!goodsDetail.basicInfo.videoId}}" circular>
+    <swiper-item wx:for="{{goodsDetail.pics}}" wx:key="id">
+      <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
+    </swiper-item>
+  </swiper>
+</view>
+<view class="goods-info">
+  <van-card price="{{goodsDetail.basicInfo.minPrice}}" origin-price="{{goodsDetail.basicInfo.originalPrice}}" title="{{goodsDetail.basicInfo.name}}" price-class="card-price" origin-price-class="card-porigin-price">
+    <view slot="price-top">
+      <view class="goods-share">
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">
+          分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}} 积分奖励
+        </view>
+        <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 2}}">
+          分享有赏，好友下单后可得 {{goodsDetail.basicInfo.commission}}元 现金奖励
+        </view>
+      </view>
+    </view>
+  </van-card>
+</view>
+<van-goods-action>
+  <van-goods-action-icon icon="chat-o" text="客服" dot />
+  <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
+  <van-goods-action-icon icon="like-o'" text="收藏" />
+  <van-goods-action-button text="加入购物车" type="warning" />
+  <van-goods-action-button text="立即购买" />
+</van-goods-action>

@@ -10,7 +10,8 @@
   "author": "",
   "license": "",
   "dependencies": {
-    "@vant/weapp": "^1.6.2"
+    "@vant/weapp": "^1.6.2",
+    "apifm-wxapi": "^3.22.0"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^2.12.0",

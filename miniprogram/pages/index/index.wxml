@@ -1,14 +1,48 @@
-<!--index.wxml-->
-<view class="container">
-  <view class="userinfo">
-    <button wx:if="{{!hasUserInfo && canIUse}}" open-type="getUserInfo" bindgetuserinfo="getUserInfo"> 获取头像昵称 </button>
-    <block wx:else>
-      <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-      <text class="userinfo-nickname">{{userInfo.nickName}}</text>
+<view class="swiper">
+  <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
+    <block wx:for="{{banners}}">
+      <swiper-item>
+        <image class="swiper-image" src="{{item.picUrl}}" data-url="{{item.linkUrl}}"  bindtap="showBanner"/>
+      </swiper-item>
     </block>
+  </swiper>
+</view>
+<view class="notice" wx:if="{{noticeList}}">
+  <swiper autoplay circular>
+    <block wx:for="{{noticeList.dataList}}">
+      <swiper-item>
+        <van-notice-bar left-icon="volume-o" text="{{item.title}}" />
+      </swiper-item>
+    </block>
+  </swiper>
+</view>
+<view class="miaoshaGoods" x:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
+  <van-divider content-position="center">限时秒杀</van-divider>
+  <view class="miaosha-container" wx:for="{{miaoshaGoods}}" bindtap="showDetail" data-id="{{item.id}}">
+    <van-card thumb="{{item.pic}}" title="{{item.name}}" price="{{item.minPrice}}" origin-price="{{item.originalPrice}}">
+      <view slot="price-top">
+        <van-count-down wx:if="{{item.dateStartInt > 0}}" time="{{ item.dateStartInt }}" format="距离开始: HH 时 mm 分 ss 秒" />
+        <van-count-down wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0}}" time="{{ item.dateEndInt }}" format="剩余: HH 时 mm 分 ss 秒" />
+      </view>
+      <view slot="footer">
+        <van-button wx:if="{{item.dateStartInt > 0}}" type="danger" size="small" round plain disabled>
+          未开始
+        </van-button>
+        <van-button wx:if="{{item.dateEndInt <= 0}}" type="danger" size="small" round>
+          已结束
+        </van-button>
+        <van-button wx:if="{{item.stores <= 0}}" type="danger" size="small" round>已抢完</van-button>
+        <van-button wx:if="{{item.dateStartInt <= 0 && item.dateEndInt > 0 && item.stores > 0}}" type="danger" size="small" round>
+          立即抢购
+        </van-button>
+      </view>
+    </van-card>
   </view>
-  <view class="usermotto">
-    <text class="user-motto">{{motto}}</text>
-  </view>
-  <van-button type="primary">按钮</van-button>
+</view>
+<van-divider content-position="center">商品列表</van-divider>
+<view class="goods-container" wx:for="{{goods}}">
+  <van-card thumb="{{item.pic}}" title="{{item.name}}" desc="{{item.characteristic}}" price="{{item.minPrice}}" origin-price="{{item.originalPrice}}" lazy-load />
+</view>
+<view hidden="{{loadingMoreHidden ? true : false}}">
+  <van-divider content-position="center">没有更多啦</van-divider>
 </view>
