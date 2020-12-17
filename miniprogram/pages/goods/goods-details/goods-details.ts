@@ -13,8 +13,9 @@ Page({
     /**
      * 生命周期函数--监听页面加载
      */
-    onLoad(e: { id: any }) {
+    onLoad(e: { id: any; }) {
         this.setData({ goodsId: e.id })
+        this.reputation(e.id);
     },
 
     /**
@@ -31,6 +32,16 @@ Page({
             }
             this.setData(_data)
         }
-    }
-
+    },
+    reputation(goodsId: any) {
+        WXAPI.goodsReputation({
+          goodsId: goodsId
+        }).then((res: { code: number; data: any; }) => {
+          if (res.code == 0) {
+            this.setData({
+              reputation: res.data
+            });
+          }
+        })
+      },
 })

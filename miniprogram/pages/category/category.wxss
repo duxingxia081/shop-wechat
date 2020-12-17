@@ -1,1 +1,22 @@
-/* pages/category/category.wxss */
+page {
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.main {
+    flex: 1;
+    display: flex;
+    height: 100%;
+}
+
+.category-container {
+    width: 180rpx;
+    height: 100%;
+}
+
+.goods-container {
+    flex: 1;
+    height: 100%;
+}

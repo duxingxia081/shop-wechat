@@ -18,7 +18,6 @@ Page({
   // 事件处理函数
   async initBanners() {
     WXAPI.banners({ type: 'index' }).then((res: { code: number; data: any; }) => {
-      console.log("code" + res.code);
       if (res.code == 0) {
         this.setData({
           banners: res.data
@@ -36,23 +35,24 @@ Page({
     })
   },
   async initMiaoshaGoods() {
-    const res = await WXAPI.goods({
+    WXAPI.goods({
       miaosha: true
+    }).then((res: { code: number; data: { dateStart: string; dateStartInt: number; dateEnd: string; dateEndInt: number; }[]; })=>{
+      if (res.code == 0) {
+        res.data.forEach((ele: { dateStart: string; dateStartInt: number; dateEnd: string; dateEndInt: number; }) => {
+          const _now = new Date().getTime()
+          if (ele.dateStart) {
+            ele.dateStartInt = new Date(ele.dateStart.replace(/-/g, '/')).getTime() - _now
+          }
+          if (ele.dateEnd) {
+            ele.dateEndInt = new Date(ele.dateEnd.replace(/-/g, '/')).getTime() - _now
+          }
+        })
+        this.setData({
+          miaoshaGoods: res.data
+        })
+      }
     })
-    if (res.code == 0) {
-      res.data.forEach((ele: { dateStart: string; dateStartInt: number; dateEnd: string; dateEndInt: number; }) => {
-        const _now = new Date().getTime()
-        if (ele.dateStart) {
-          ele.dateStartInt = new Date(ele.dateStart.replace(/-/g, '/')).getTime() - _now
-        }
-        if (ele.dateEnd) {
-          ele.dateEndInt = new Date(ele.dateEnd.replace(/-/g, '/')).getTime() - _now
-        }
-      })
-      this.setData({
-        miaoshaGoods: res.data
-      })
-    }
   },
   async initCategories() {
     const res = await WXAPI.goodsCategory()
@@ -124,5 +124,11 @@ Page({
   },
   showDetail:function(e: { currentTarget: { dataset: { id: string; }; }; }){
     wx.navigateTo({url:"/pages/goods/goods-details/goods-details?id="+e.currentTarget.dataset.id})
-  }
+  },
+  goCategory: function(e: { currentTarget: { id: any; }; }) {
+    wx.setStorageSync("_categoryId", e.currentTarget.id)
+    wx.switchTab({
+      url: '/pages/category/category',
+    })
+  },
 })

@@ -11,7 +11,8 @@
   "license": "",
   "dependencies": {
     "@vant/weapp": "^1.6.2",
-    "apifm-wxapi": "^3.22.0"
+    "apifm-wxapi": "^3.22.0",
+    "parser-wx": "^1.1.1"
   },
   "devDependencies": {
     "miniprogram-api-typings": "^2.12.0",

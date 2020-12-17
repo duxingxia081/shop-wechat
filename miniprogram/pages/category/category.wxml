@@ -1,2 +1,16 @@
-<!--pages/category/category.wxml-->
-<text>pages/category/category.wxml</text>
+<view class="main">
+    <scroll-view class="category-container" scroll-y="true" scroll-top="{{scrolltop}}">
+        <van-sidebar active-key="{{ activeCategory }}">
+            <van-sidebar-item wx:if="{{item.level == 1}}" id="category{{item.id}}" wx:for="{{categories}}" wx:key="id" data-idx="{{index}}" bindtap="onCategoryClick" title="{{ item.name }}" />
+        </van-sidebar>
+    </scroll-view>
+    <!-- 显示右侧商品 -->
+    <scroll-view class="goods-container" scroll-y="true" scroll-top="{{scrolltop}}">
+        <van-card wx:for="{{currentGoods}}" wx:key="id" price="{{item.minPrice}}" desc="{{item.numberSells ? '已售' + item.numberSells : ''}}" tag="{{item.gotScore ? item.gotScore + '积分' : ''}}" title="{{item.name}}" thumb="{{item.pic}}_m" thumb-link="/pages/goods-details/index?id={{item.id}}">
+            <view class="goods-btn" slot="footer">
+                <van-icon name="add" data-id="{{item.id}}" bind:click="addShopCar" />
+                <van-icon name="shopping-cart-o" data-id="{{item.id}}" bind:click="addShopCar" />
+            </view>
+        </van-card>
+    </scroll-view>
+</view>

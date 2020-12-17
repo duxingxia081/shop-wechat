@@ -2,7 +2,7 @@
   <swiper indicator-dots="{{true}}" autoplay="{{true}}" interval="{{5000}}" duration="{{500}}">
     <block wx:for="{{banners}}">
       <swiper-item>
-        <image class="swiper-image" src="{{item.picUrl}}" data-url="{{item.linkUrl}}"  bindtap="showBanner"/>
+        <image class="swiper-image" src="{{item.picUrl}}" data-url="{{item.linkUrl}}" bindtap="showBanner" />
       </swiper-item>
     </block>
   </swiper>
@@ -15,6 +15,13 @@
       </swiper-item>
     </block>
   </swiper>
+</view>
+<view class="category">
+  <van-grid column-num="5" border="{{false}}">
+    <view class="category-list" wx:for="{{categories}}">
+      <van-grid-item icon="{{item.icon}}" text="{{item.name}}" bindtap="goCategory" id="{{item.id}}"/>
+    </view>
+  </van-grid>
 </view>
 <view class="miaoshaGoods" x:if="{{miaoshaGoods && miaoshaGoods.length > 0}}">
   <van-divider content-position="center">限时秒杀</van-divider>
