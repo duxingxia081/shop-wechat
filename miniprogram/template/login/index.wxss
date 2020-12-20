@@ -1,0 +1,11 @@
+.wz-login-msg{
+  margin-top: -2em;
+  font-size: 0.6em;
+  color: gray;
+}
+.wz-login-agree,.wz-login-disagree{
+  margin: 0.5em 2em;
+}
+.wz-login-img{
+  margin-bottom: -0.5em;
+}

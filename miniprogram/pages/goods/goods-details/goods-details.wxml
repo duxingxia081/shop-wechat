@@ -1,12 +1,15 @@
+<import src="/template/login/index.wxml" />
 <view class="swiper-container">
-  <swiper class="swiper_box" indicator-dots="true" interval="{{3000}}" duration="{{500}}" autoplay="{{!goodsDetail.basicInfo.videoId}}" circular>
+  <swiper class="swiper_box" indicator-dots="true" interval="{{3000}}" duration="{{500}}"
+    autoplay="{{!goodsDetail.basicInfo.videoId}}" circular>
     <swiper-item wx:for="{{goodsDetail.pics}}" wx:key="id">
       <image src="{{item.pic}}" mode="aspectFill" lazy-load="true" />
     </swiper-item>
   </swiper>
 </view>
 <view class="goods-info">
-  <van-card price="{{goodsDetail.basicInfo.minPrice}}" origin-price="{{goodsDetail.basicInfo.originalPrice}}" title="{{goodsDetail.basicInfo.name}}" price-class="card-price" origin-price-class="card-porigin-price">
+  <van-card price="{{goodsDetail.basicInfo.minPrice}}" origin-price="{{goodsDetail.basicInfo.originalPrice}}"
+    title="{{goodsDetail.basicInfo.name}}" price-class="card-price" origin-price-class="card-porigin-price">
     <view slot="price-top">
       <view class="goods-share">
         <view class="goods-share" wx:if="{{goodsDetail.basicInfo.commissionType == 1}}">
@@ -26,16 +29,30 @@
   </view>
 </view>
 >
+<view class="goods-pingjias" wx:if="{{reputation}}">
+  <van-divider contentPosition="left">商品介绍<text style="color:red">({{reputation.length}})</text></van-divider>
+  <view class="goods-pingjia" wx:for="{{reputation}}">
+    <van-card title="{{item.goods.goodReputationRemark}}" desc="{{item.goods.dateReputation}} {{item.goods.property}}"
+      thumb="{{item.user.avatarUrl}}" />
+  </view>
+</view>
 <van-goods-action>
   <van-goods-action-icon icon="chat-o" text="客服" dot />
   <van-goods-action-icon icon="cart-o" text="购物车" info="5" />
   <van-goods-action-icon icon="like-o'" text="收藏" />
-  <van-goods-action-button text="加入购物车" type="warning" />
+  <van-goods-action-button text="加入购物车" type="warning" bind:click="toAddShopCar" />
   <van-goods-action-button text="立即购买" />
 </van-goods-action>
-<view class="goods-pingjias" wx:if="{{reputation}}">
-<van-divider contentPosition="left">商品介绍<text style="color:red">({{reputation.length}})</text></van-divider>
-  <view class="goods-pingjia" wx:for="{{reputation}}">
-    <van-card title="{{item.goods.goodReputationRemark}}" desc="{{item.goods.dateReputation}} {{item.goods.property}}" thumb="{{item.user.avatarUrl}}" />
-  </view>
-</view>
+<van-popup show="{{ showShopPopup }}" position="bottom" round bind:close="closePopupTap">
+  <van-card centered price="{{ goodsDetail.basicInfo.minPrice }}"
+    origin-price="{{ goodsDetail.basicInfo.originalPrice }}" title="{{ goodsDetail.basicInfo.name }}"
+    thumb="{{ goodsDetail.basicInfo.pic }}" />
+  <van-cell title="购买数量">
+    <view>
+      <van-stepper value="{{ buyNumber }}" min="{{ buyNumMin }}" max="{{ buyNumMax }}" bind:change="stepChange" />
+    </view>
+  </van-cell>
+  <van-button wx:if="{{shopType =='addShopCar'}}" bindtap="addShopCar" type="danger" block>加入购物车</van-button>
+  <van-button wx:if="{{shopType =='tobuy' || shopType =='toPingtuan'}}" data-shopType="{{shopType}}" bindtap="buyNow" type="danger" block>立即购买</van-button>
+</van-popup>
+<template is="wzApiLogin" data="{{wxlogin: wxlogin}}" />

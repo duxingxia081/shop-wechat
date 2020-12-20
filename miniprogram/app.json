@@ -22,7 +22,11 @@
         "van-grid": "@vant/weapp/grid/index",
         "van-grid-item": "@vant/weapp/grid-item/index",
         "van-sidebar": "@vant/weapp/sidebar/index",
-        "van-sidebar-item": "@vant/weapp/sidebar-item/index"
+        "van-sidebar-item": "@vant/weapp/sidebar-item/index",
+        "van-popup": "@vant/weapp/popup/index",
+        "van-cell": "@vant/weapp/cell/index",
+        "van-stepper": "@vant/weapp/stepper/index",
+        "van-image": "@vant/weapp/image/index"
     },
     "window": {
         "backgroundTextStyle": "light",

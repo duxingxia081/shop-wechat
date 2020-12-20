@@ -1,0 +1,45 @@
+<template name="apifmLogin">
+  <view class="apifmLogin" hidden="{{wxlogin}}">
+    <view class="s-b">
+      <view class="s-l-b">
+        <image src="/images/nologin.png" />
+        <text>授权登录</text>
+      </view>
+      <view class="s-t-b">
+        <view class="s-t-i">
+          <text>·</text>请授权小程序登录</view>
+        <view class="s-t-i">
+          <text>·</text>我们不会公布您的这些信息</view>
+        <view class="s-t-i">
+          <text>·</text>只是为了给您提供更好的服务</view>
+      </view>
+      <button class="l" open-type="getUserInfo" lang="zh_CN" bindgetuserinfo="processLogin">允许</button>
+      <button class="c" bindtap="cancelLogin" type="default">暂不登录</button>
+    </view>
+  </view>
+</template>
+<template name="wzApiLogin">
+  <van-popup show="{{ !wxlogin }}" close-on-click-overlay="false" custom-style="width:80%;text-align:center">
+    <view class="wz-login-img">
+      <van-image round fit="cover" width="3rem" height="3rem" src="https://img.yzcdn.cn/vant/cat.jpeg" />
+      <view class="wz-login">
+        授权登录
+      </view>
+    </view>
+    <van-divider />
+    <view class="wz-login-msg">
+      <text>
+        ·请授权小程序登录
+        ·我们不会公布您的这些信息
+        ·只是给您提供更好的服务
+      </text>
+    </view>
+    <view class="wz-login-agree">
+      <van-button type="primary" open-type="getUserInfo" size="small" bindgetuserinfo="processLogin" block>允许
+      </van-button>
+    </view>
+    <view class="wz-login-disagree">
+      <van-button color="gray" size="small" bindtap="cancelLogin" block>暂不登录</van-button>
+    </view>
+  </van-popup>
+</template>
